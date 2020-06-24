@@ -1,0 +1,125 @@
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+STEP 1 : ADD material dependency (latest recommended)
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+dependencies {
+    implementation 'com.google.android.material:material:1.3.0-alpha01'
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+STEP 2 : add following code in styles.xml
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ViewpagerTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryVP</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkVP</item>
+        <item name="colorAccent">@color/colorAccentVP</item>
+    </style>
+</resources>
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+STEP 3 : add following code in styles.xml(v21)
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+</resources>
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+STEP 4 : add theme in AndroidManifest.xml
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+<activity
+            android:name=".BackActionbarActivity"
+            android:label="@string/backactionbar"
+            android:theme="@style/AppTheme.NoActionBar" />
+            
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+STEP 5 : add following code in the activity_back_actionbar.xml
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BackActionbarActivity"
+    android:orientation="vertical"
+    android:background="#fff176">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay" >
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+</LinearLayout>
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+STEP 6 : add following code in the BackActionbarActivity.java
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+
+package com.example.practice101;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.View;
+
+public class BackActionbarActivity extends AppCompatActivity {
+
+    private Toolbar toolbar;
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_back_actionbar);
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_back);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+STEP 7 : add ic_back logo from vectorAsset in drawable
+---------------------------------------------------------------------------------------------------------------------------------------------------------
